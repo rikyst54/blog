@@ -15,18 +15,22 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ArticleType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('picture', FileType::class)
-            ->add('title', TextType::class)
-            ->add('content', TextareaType::class)
-            ->add('isPublished', CheckboxType::class)
+            ->add('picture', FileType::class, [
+                'required' => false,
+                'data_class' => null
+            ])
+            ->add('title', TextType::class, ['required' => false])
+            ->add('content', TextareaType::class, ['required' => false])
+            ->add('isPublished', CheckboxType::class, ['required' => false])
             ->add('categories', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'label',
                 'multiple' => true,
-                'expanded' => false
+                'expanded' => false,
+                'required' => false
             ])
         ;
     }
